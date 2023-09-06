@@ -7,7 +7,9 @@
   "private": false,
   "scripts": {
     "build": "tsc",
-    "open-api:generate": "openapi-generator-cli generate -i open-api-spec.json -g typescript-axios -o src --additional-properties=withNodeImports=true"
+    "open-api:generate": "openapi-generator-cli generate -i open-api-spec.json -g typescript-axios -o src --additional-properties=withNodeImports=true",
+    "patch": "pnpm version patch && npm publish",
+    "package-build:publish": "pnpm run build && pnpm run open-api:generate && pnpm run patch" 
   },
   "keywords": [],
   "author": {
