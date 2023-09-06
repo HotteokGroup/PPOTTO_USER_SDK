@@ -4,6 +4,7 @@
   "description": "Ppotto User API Client",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "private": false,
   "scripts": {
     "build": "tsc",
     "open-api:generate": "openapi-generator-cli generate -i open-api-spec.json -g typescript-axios -o src --additional-properties=withNodeImports=true"
