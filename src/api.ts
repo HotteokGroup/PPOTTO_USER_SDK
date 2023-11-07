@@ -88,6 +88,64 @@ export interface ConfirmVerificationResponse {
      * @memberof ConfirmVerificationResponse
      */
     'remaining': number;
+    /**
+     * 인증 타입
+     * @type {string}
+     * @memberof ConfirmVerificationResponse
+     */
+    'verificationType': string;
+    /**
+     * 이메일 주소 (인증타입이 이메일인경우 필수)
+     * @type {string}
+     * @memberof ConfirmVerificationResponse
+     */
+    'emailAddress'?: string;
+    /**
+     * 요청 유저 아이디 (단순 기록용)
+     * @type {number}
+     * @memberof ConfirmVerificationResponse
+     */
+    'userId'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface CreateFileRequest
+ */
+export interface CreateFileRequest {
+    /**
+     * 파일 유형 (프로필 이미지, 피드 이미지)
+     * @type {string}
+     * @memberof CreateFileRequest
+     */
+    'contentType': CreateFileRequestContentTypeEnum;
+    /**
+     * 고객 아이디
+     * @type {number}
+     * @memberof CreateFileRequest
+     */
+    'userId': number;
+}
+
+export const CreateFileRequestContentTypeEnum = {
+    FeedImage: 'FEED_IMAGE',
+    ProfileImage: 'PROFILE_IMAGE'
+} as const;
+
+export type CreateFileRequestContentTypeEnum = typeof CreateFileRequestContentTypeEnum[keyof typeof CreateFileRequestContentTypeEnum];
+
+/**
+ * 
+ * @export
+ * @interface CreateFileResponse
+ */
+export interface CreateFileResponse {
+    /**
+     * 파일 고유 아이디
+     * @type {string}
+     * @memberof CreateFileResponse
+     */
+    'id': string;
 }
 /**
  * 
@@ -126,6 +184,100 @@ export interface CreateUserResponse {
      * @memberof CreateUserResponse
      */
     'id': number;
+}
+/**
+ * 
+ * @export
+ * @interface GetFileListItem
+ */
+export interface GetFileListItem {
+    /**
+     * 파일 고유 아이디
+     * @type {string}
+     * @memberof GetFileListItem
+     */
+    'id': string;
+    /**
+     * 고객 아이디
+     * @type {number}
+     * @memberof GetFileListItem
+     */
+    'userId': number;
+    /**
+     * 파일 유형 (프로필 이미지, 피드 이미지)
+     * @type {string}
+     * @memberof GetFileListItem
+     */
+    'contentType': GetFileListItemContentTypeEnum;
+    /**
+     * 연결된 콘텐츠 아이디
+     * @type {string}
+     * @memberof GetFileListItem
+     */
+    'contentId'?: string;
+    /**
+     * 파일명
+     * @type {string}
+     * @memberof GetFileListItem
+     */
+    'fileName'?: string;
+    /**
+     * 원본 파일 주소
+     * @type {string}
+     * @memberof GetFileListItem
+     */
+    'originalFileUrl'?: string;
+    /**
+     * 작은 섬네일 주소
+     * @type {string}
+     * @memberof GetFileListItem
+     */
+    'smallThumbnailUrl'?: string;
+    /**
+     * 중간 섬네일 주소
+     * @type {string}
+     * @memberof GetFileListItem
+     */
+    'mediumThumbnailUrl'?: string;
+    /**
+     * 큰 섬네일 주소
+     * @type {string}
+     * @memberof GetFileListItem
+     */
+    'largeThumbnailUrl'?: string;
+    /**
+     * 콘텐츠 관계 해제일
+     * @type {string}
+     * @memberof GetFileListItem
+     */
+    'disconnectedAt'?: string;
+    /**
+     * 생성일
+     * @type {string}
+     * @memberof GetFileListItem
+     */
+    'createdAt'?: string;
+}
+
+export const GetFileListItemContentTypeEnum = {
+    FeedImage: 'FEED_IMAGE',
+    ProfileImage: 'PROFILE_IMAGE'
+} as const;
+
+export type GetFileListItemContentTypeEnum = typeof GetFileListItemContentTypeEnum[keyof typeof GetFileListItemContentTypeEnum];
+
+/**
+ * 
+ * @export
+ * @interface GetFileListResponse
+ */
+export interface GetFileListResponse {
+    /**
+     * 
+     * @type {Array<GetFileListItem>}
+     * @memberof GetFileListResponse
+     */
+    'list': Array<GetFileListItem>;
 }
 /**
  * 
@@ -334,6 +486,82 @@ export interface LoginUserByEmailResponse {
 /**
  * 
  * @export
+ * @interface ModifyFileRequest
+ */
+export interface ModifyFileRequest {
+    /**
+     * 고객 아이디
+     * @type {number}
+     * @memberof ModifyFileRequest
+     */
+    'userId'?: number;
+    /**
+     * 파일 유형 (프로필 이미지, 피드 이미지)
+     * @type {string}
+     * @memberof ModifyFileRequest
+     */
+    'contentType'?: ModifyFileRequestContentTypeEnum;
+    /**
+     * 연결된 콘텐츠 아이디
+     * @type {string}
+     * @memberof ModifyFileRequest
+     */
+    'contentId'?: string;
+    /**
+     * 원본 주소
+     * @type {string}
+     * @memberof ModifyFileRequest
+     */
+    'originalFileUrl'?: string;
+    /**
+     * 작은 섬네일 주소
+     * @type {string}
+     * @memberof ModifyFileRequest
+     */
+    'smallThumbnailUrl'?: string;
+    /**
+     * 중간 섬네일 주소
+     * @type {string}
+     * @memberof ModifyFileRequest
+     */
+    'mediumThumbnailUrl'?: string;
+    /**
+     * 큰 섬네일 주소
+     * @type {string}
+     * @memberof ModifyFileRequest
+     */
+    'largeThumbnailUrl'?: string;
+    /**
+     * 콘텐츠 관계 해제일
+     * @type {string}
+     * @memberof ModifyFileRequest
+     */
+    'disconnectedAt'?: string;
+}
+
+export const ModifyFileRequestContentTypeEnum = {
+    FeedImage: 'FEED_IMAGE',
+    ProfileImage: 'PROFILE_IMAGE'
+} as const;
+
+export type ModifyFileRequestContentTypeEnum = typeof ModifyFileRequestContentTypeEnum[keyof typeof ModifyFileRequestContentTypeEnum];
+
+/**
+ * 
+ * @export
+ * @interface ModifyFileResponse
+ */
+export interface ModifyFileResponse {
+    /**
+     * 파일 고유 아이디
+     * @type {string}
+     * @memberof ModifyFileResponse
+     */
+    'id': string;
+}
+/**
+ * 
+ * @export
  * @interface ModifyUserCommandResult
  */
 export interface ModifyUserCommandResult {
@@ -414,6 +642,127 @@ export interface SendVerificationResponse {
  */
 export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * 파일을 생성합니다.
+         * @summary 파일 생성
+         * @param {CreateFileRequest} createFileRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        fileStoreControllerCreateFile: async (createFileRequest: CreateFileRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createFileRequest' is not null or undefined
+            assertParamExists('fileStoreControllerCreateFile', 'createFileRequest', createFileRequest)
+            const localVarPath = `/file-store`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createFileRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 파일을 조회합니다.
+         * @summary 파일 조회
+         * @param {Array<string>} [id] 파일 고유 아이디
+         * @param {Array<string>} [contentId] 연결된 콘텐츠 아이디
+         * @param {number} [userId] 고객 아이디
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        fileStoreControllerGetFileList: async (id?: Array<string>, contentId?: Array<string>, userId?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/file-store`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (id) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            if (contentId) {
+                localVarQueryParameter['contentId'] = contentId;
+            }
+
+            if (userId !== undefined) {
+                localVarQueryParameter['userId'] = userId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 파일을 수정합니다.
+         * @summary 파일 수정
+         * @param {string} fileId 
+         * @param {ModifyFileRequest} modifyFileRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        fileStoreControllerModifyFile: async (fileId: string, modifyFileRequest: ModifyFileRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'fileId' is not null or undefined
+            assertParamExists('fileStoreControllerModifyFile', 'fileId', fileId)
+            // verify required parameter 'modifyFileRequest' is not null or undefined
+            assertParamExists('fileStoreControllerModifyFile', 'modifyFileRequest', modifyFileRequest)
+            const localVarPath = `/file-store/{fileId}`
+                .replace(`{${"fileId"}}`, encodeURIComponent(String(fileId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(modifyFileRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * 약관을 동의합니다.
          * @summary 약관 동의
@@ -709,6 +1058,42 @@ export const DefaultApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
     return {
         /**
+         * 파일을 생성합니다.
+         * @summary 파일 생성
+         * @param {CreateFileRequest} createFileRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async fileStoreControllerCreateFile(createFileRequest: CreateFileRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateFileResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.fileStoreControllerCreateFile(createFileRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 파일을 조회합니다.
+         * @summary 파일 조회
+         * @param {Array<string>} [id] 파일 고유 아이디
+         * @param {Array<string>} [contentId] 연결된 콘텐츠 아이디
+         * @param {number} [userId] 고객 아이디
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async fileStoreControllerGetFileList(id?: Array<string>, contentId?: Array<string>, userId?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetFileListResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.fileStoreControllerGetFileList(id, contentId, userId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 파일을 수정합니다.
+         * @summary 파일 수정
+         * @param {string} fileId 
+         * @param {ModifyFileRequest} modifyFileRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async fileStoreControllerModifyFile(fileId: string, modifyFileRequest: ModifyFileRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ModifyFileResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.fileStoreControllerModifyFile(fileId, modifyFileRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * 약관을 동의합니다.
          * @summary 약관 동의
          * @param {AgreeTermsOfServiceRequest} agreeTermsOfServiceRequest 
@@ -807,6 +1192,39 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     const localVarFp = DefaultApiFp(configuration)
     return {
         /**
+         * 파일을 생성합니다.
+         * @summary 파일 생성
+         * @param {CreateFileRequest} createFileRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        fileStoreControllerCreateFile(createFileRequest: CreateFileRequest, options?: any): AxiosPromise<CreateFileResponse> {
+            return localVarFp.fileStoreControllerCreateFile(createFileRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 파일을 조회합니다.
+         * @summary 파일 조회
+         * @param {Array<string>} [id] 파일 고유 아이디
+         * @param {Array<string>} [contentId] 연결된 콘텐츠 아이디
+         * @param {number} [userId] 고객 아이디
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        fileStoreControllerGetFileList(id?: Array<string>, contentId?: Array<string>, userId?: number, options?: any): AxiosPromise<GetFileListResponse> {
+            return localVarFp.fileStoreControllerGetFileList(id, contentId, userId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 파일을 수정합니다.
+         * @summary 파일 수정
+         * @param {string} fileId 
+         * @param {ModifyFileRequest} modifyFileRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        fileStoreControllerModifyFile(fileId: string, modifyFileRequest: ModifyFileRequest, options?: any): AxiosPromise<ModifyFileResponse> {
+            return localVarFp.fileStoreControllerModifyFile(fileId, modifyFileRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
          * 약관을 동의합니다.
          * @summary 약관 동의
          * @param {AgreeTermsOfServiceRequest} agreeTermsOfServiceRequest 
@@ -896,6 +1314,45 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
  * @extends {BaseAPI}
  */
 export class DefaultApi extends BaseAPI {
+    /**
+     * 파일을 생성합니다.
+     * @summary 파일 생성
+     * @param {CreateFileRequest} createFileRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public fileStoreControllerCreateFile(createFileRequest: CreateFileRequest, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).fileStoreControllerCreateFile(createFileRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 파일을 조회합니다.
+     * @summary 파일 조회
+     * @param {Array<string>} [id] 파일 고유 아이디
+     * @param {Array<string>} [contentId] 연결된 콘텐츠 아이디
+     * @param {number} [userId] 고객 아이디
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public fileStoreControllerGetFileList(id?: Array<string>, contentId?: Array<string>, userId?: number, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).fileStoreControllerGetFileList(id, contentId, userId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 파일을 수정합니다.
+     * @summary 파일 수정
+     * @param {string} fileId 
+     * @param {ModifyFileRequest} modifyFileRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public fileStoreControllerModifyFile(fileId: string, modifyFileRequest: ModifyFileRequest, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).fileStoreControllerModifyFile(fileId, modifyFileRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 약관을 동의합니다.
      * @summary 약관 동의
