@@ -93,7 +93,7 @@ export interface ConfirmVerificationResponse {
      * @type {string}
      * @memberof ConfirmVerificationResponse
      */
-    'verificationType': string;
+    'verificationType': ConfirmVerificationResponseVerificationTypeEnum;
     /**
      * 이메일 주소 (인증타입이 이메일인경우 필수)
      * @type {string}
@@ -107,6 +107,13 @@ export interface ConfirmVerificationResponse {
      */
     'userId'?: number;
 }
+
+export const ConfirmVerificationResponseVerificationTypeEnum = {
+    Email: 'EMAIL'
+} as const;
+
+export type ConfirmVerificationResponseVerificationTypeEnum = typeof ConfirmVerificationResponseVerificationTypeEnum[keyof typeof ConfirmVerificationResponseVerificationTypeEnum];
+
 /**
  * 
  * @export
@@ -608,7 +615,7 @@ export interface SendVerificationRequest {
      * @type {string}
      * @memberof SendVerificationRequest
      */
-    'verificationType': string;
+    'verificationType': SendVerificationRequestVerificationTypeEnum;
     /**
      * 이메일 주소 (인증타입이 이메일인경우 필수)
      * @type {string}
@@ -622,6 +629,13 @@ export interface SendVerificationRequest {
      */
     'userId'?: number;
 }
+
+export const SendVerificationRequestVerificationTypeEnum = {
+    Email: 'EMAIL'
+} as const;
+
+export type SendVerificationRequestVerificationTypeEnum = typeof SendVerificationRequestVerificationTypeEnum[keyof typeof SendVerificationRequestVerificationTypeEnum];
+
 /**
  * 
  * @export
