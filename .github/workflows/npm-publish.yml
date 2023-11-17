@@ -17,17 +17,10 @@ jobs:
         with:
           version: latest
 
-      - name: NodeJS 실행환경 구성
-        run: |
-          NODE_VERSION=$(cat .nvmrc)
-          echo "Using Node.js $NODE_VERSION"
-          echo "::set-env name=NODE_VERSION::$NODE_VERSION"
-        shell: bash
-
-      - name: NodeJS ${{ env.NODE_VERSION }} 버전 사용
+      - name: NodeJS ${{ vars.NODE_VERSION }} 버전 사용
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: ${{ vars.NODE_VERSION }}
           cache: 'pnpm'
 
       - name: 의존성 설치
