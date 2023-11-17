@@ -1,0 +1,48 @@
+name: PPOTTO User SDK NPM Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 프로젝트 로드
+        uses: actions/checkout@v4
+      
+      - name: PNPM 사용
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
+      - name: NodeJS 실행환경 구성
+        run: |
+          NODE_VERSION=$(cat .nvmrc)
+          echo "Using Node.js $NODE_VERSION"
+          echo "::set-env name=NODE_VERSION::$NODE_VERSION"
+        shell: bash
+
+      - name: NodeJS ${{ env.NODE_VERSION }} 버전 사용
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: 의존성 설치
+        run: pnpm i
+
+      - name: openAPI SDK 생성
+        run: pnpm run open-api:generate
+
+      - name: 패키지 빌드
+        run: pnpm run build
+
+      - name: 패키지 퍼블리싱
+        run: pnpm run patch
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: 패키지 태그 업데이트
+        run: git push --follow-tags origin main
