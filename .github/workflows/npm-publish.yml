@@ -39,7 +39,9 @@ jobs:
           git config --global user.name "github-action-ppotto"
 
       - name: 패키지 퍼블리싱
-        run: pnpm run patch
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+          pnpm run patch
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
