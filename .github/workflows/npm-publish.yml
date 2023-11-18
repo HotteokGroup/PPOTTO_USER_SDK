@@ -33,11 +33,13 @@ jobs:
       - name: 패키지 빌드
         run: pnpm run build
 
-      - name: 패키지 퍼블리싱
+      - name: Git 프로파일 등록
         run: |
           git config --global user.email "github-action@ppotto.io"
           git config --global user.name "github-action-ppotto"
-          pnpm run patch
+
+      - name: 패키지 퍼블리싱
+        run: pnpm run patch
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
