@@ -21,7 +21,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ vars.NODE_VERSION }}
-          registry-url: "https://registry.npmjs.org"
+          registry-url: "https://registry.npmjs.org/@ppotto/user-api-client"
           cache: "pnpm"
 
       - name: 의존성 설치
