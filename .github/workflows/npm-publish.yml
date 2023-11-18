@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build&publish:
+  build_and_publish:
     runs-on: ubuntu-latest
     steps:
       - name: 프로젝트 로드
