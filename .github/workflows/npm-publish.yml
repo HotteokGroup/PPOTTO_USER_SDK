@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  build&publish:
     runs-on: ubuntu-latest
     steps:
       - name: 프로젝트 로드
@@ -17,7 +17,7 @@ jobs:
         with:
           version: latest
 
-      - name: NodeJS ${{ vars.NODE_VERSION }} 버전 사용
+      - name: NodeJS 설정
         uses: actions/setup-node@v3
         with:
           node-version: ${{ vars.NODE_VERSION }}
@@ -33,11 +33,10 @@ jobs:
       - name: 패키지 빌드
         run: pnpm run build
 
-      - name: Git 프로파일 등록 및 .npmrc 생성
+      - name: Git 프로파일 등록
         run: |
           git config --global user.email "github-action@ppotto.io"
           git config --global user.name "github-action-ppotto"
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
 
       - name: 패키지 퍼블리싱
         run: pnpm run patch
